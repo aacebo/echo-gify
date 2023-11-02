@@ -1,0 +1,26 @@
+{
+  "name": "@aacebo/echo-gify",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p .",
+    "debug": "DEBUG=echo* NODE_OPTIONS=\"-r dotenv/config\" npx ts-node --skipProject src/index.ts"
+  },
+  "dependencies": {
+    "@aacebo/echo": "^0.0.1",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.1",
+    "dotenv": "^16.3.1",
+    "typescript": "^5.1.6"
+  }
+}
