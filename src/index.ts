@@ -20,7 +20,7 @@ const app = new App({
 });
 
 app.event('link', async ({ event, ack }) => {
-  if (event.body.link.match(/\.(gif)$/) != null) {
+  if (event.body.link.includes('.gif')) {
     const message = await app.api.messages.getById(event.body.message_id);
 
     await app.api.messages.extend(message.id, {
