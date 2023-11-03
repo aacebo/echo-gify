@@ -19,6 +19,24 @@ const app = new App({
   clientSecret: process.env.CLIENT_SECRET
 });
 
+app.event('link', async ({ event, ack }) => {
+  if (event.body.link.match(/\.(gif)$/) != null) {
+    const message = await app.api.messages.getById(event.body.message_id);
+
+    await app.api.messages.extend(message.id, {
+      body: {
+        type: 'container',
+        child: {
+          type: 'image',
+          url: event.body.link
+        }
+      }
+    });
+  }
+
+  ack();
+});
+
 app.shortcut('random', async ({ chat, user, ack }) => {
   const gifs = await gify.trending({
     type: 'gifs',

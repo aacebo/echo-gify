@@ -1,0 +1,23 @@
+{
+	"icon_url": "https://giphy.com/static/img/about/stickers/logo-spin.gif",
+	"name": "giphy",
+	"display_name": "Giphy",
+	"description": "a giphy app",
+	"scopes": [
+    "messages:read",
+    "messages:write"
+  ],
+	"events": [],
+	"shortcuts": {
+		"random": {
+			"type": "chat",
+			"name": "Random",
+			"description": "post a random gif"
+		}
+	},
+	"link_domains": [
+		"https://giphy.com",
+    "https://media1.giphy.com",
+    "https://media2.giphy.com"
+	]
+}
