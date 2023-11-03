@@ -15,8 +15,8 @@
     "debug": "DEBUG=echo* NODE_OPTIONS=\"-r dotenv/config\" npx ts-node --skipProject src/index.ts"
   },
   "dependencies": {
-    "@aacebo/echo": "^0.0.1",
-    "axios": "^1.4.0"
+    "@aacebo/echo": "^0.0.9",
+    "@giphy/js-fetch-api": "^5.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.5.1",

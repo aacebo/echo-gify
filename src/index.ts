@@ -1,6 +1,5 @@
-import { App } from '@aacebo/echo';
-
-import { Gify } from './gify';
+import { App, blocks } from '@aacebo/echo';
+import { GiphyFetch } from '@giphy/js-fetch-api';
 
 if (!process.env.CLIENT_ID) {
   throw new Error('`CLIENT_ID` is required');
@@ -14,92 +13,164 @@ if (!process.env.GIFY_API_KEY) {
   throw new Error('`GIFY_API_KEY` is required')
 }
 
+const gify = new GiphyFetch(process.env.GIFY_API_KEY);
 const app = new App({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET
 });
 
-app.action('onSave', ({ block_id, user, value, ack }) => {
-  console.log(`@${user.name} executed "onClick" action from block "${block_id}" with value "${value}"`);
-  ack();
-});
+app.shortcut('random', async ({ chat, user, ack }) => {
+  const gifs = await gify.trending({
+    type: 'gifs',
+    limit: 15
+  });
 
-app.action('onClick', async ({ block_id, user, value, ack }) => {
-  console.log(`@${user.name} executed "onClick" action from block "${block_id}" with value "${value}"`);
+  let idx = 0;
+  const rows: blocks.Row[] = [];
+
+  for (let i = 0; i < 5; i++) {
+    const row: blocks.Row = {
+      type: 'row',
+      children: []
+    };
+
+    while (idx < gifs.data.length) {
+      row.children.push({
+        type: 'button',
+        child: {
+          type: 'image',
+          url: gifs.data[idx].images.downsized_medium.url
+        },
+        on_click: {
+          action: 'submit',
+          value: gifs.data[idx].images.downsized_medium.url
+        }
+      });
+
+      idx++;
+
+      if (idx % 3 == 0) {
+        rows.push(row);
+        break;
+      }
+    }
+  }
 
   await app.api.views.dialogs.open(user.name, {
-    id: '1',
+    id: 'giphy',
+    type: 'chat',
+    context_id: chat.id,
+    title: {
+      type: 'text',
+      text: 'Random Gif'
+    },
     body: {
       type: 'column',
       children: [
         {
           type: 'input',
-          label: {
+          placeholder: {
             type: 'text',
-            text: 'Username'
+            text: 'Search...'
           },
-          default_value: user.name
+          on_submit: {
+            action: 'search'
+          }
         },
         {
-          type: 'input',
-          label: {
-            type: 'text',
-            text: 'Phone'
-          },
-          default_value: user.phone
-        }
+          type: 'spacer'
+        },
+        ...rows
       ]
-    },
-    submit: {
-      type: 'text',
-      text: 'Save'
-    },
-    onSubmit: 'onSave'
+    }
   });
 
   ack();
 });
 
-app.action('onChatChange', ({ block_id, user, value, ack }) => {
-  console.log(`@${user.name} executed "onChatChange" action from block "${block_id}" with value "${value}"`);
+app.action('search', async ({ chat, user, value, ack }) => {
+  const gifs = await gify.search(value.text, {
+    type: 'gifs',
+    explore: true,
+    limit: 15
+  });
+
+  let idx = 0;
+  const rows: blocks.Row[] = [];
+
+  for (let i = 0; i < 5; i++) {
+    const row: blocks.Row = {
+      type: 'row',
+      children: []
+    };
+
+    while (idx < gifs.data.length) {
+      row.children.push({
+        type: 'button',
+        child: {
+          type: 'image',
+          url: gifs.data[idx].images.downsized_medium.url
+        },
+        on_click: {
+          action: 'submit',
+          value: gifs.data[idx].images.downsized_medium.url
+        }
+      });
+
+      idx++;
+
+      if (idx % 3 == 0) {
+        rows.push(row);
+        break;
+      }
+    }
+  }
+
+  await app.api.views.dialogs.open(user.name, {
+    id: 'giphy',
+    type: 'chat',
+    context_id: chat.id,
+    title: {
+      type: 'text',
+      text: 'Random Gif'
+    },
+    body: {
+      type: 'column',
+      children: [
+        {
+          type: 'input',
+          placeholder: {
+            type: 'text',
+            text: 'Search...'
+          },
+          default_value: value.text,
+          on_submit: {
+            action: 'search'
+          }
+        },
+        {
+          type: 'spacer'
+        },
+        ...rows
+      ]
+    }
+  });
+
   ack();
 });
 
-app.command('random', async ({ chat, user, input, ack }) => {
-  const gif = await Gify.random(input);
-
+app.action('submit', async ({ chat, user, value, ack }) => {
   await app.api.messages.createFor(user.name, chat.id, {
     child: {
       type: 'container',
       child: {
-        type: 'column',
-        children: [
-          {
-            type: 'image',
-            url: `https://media2.giphy.com/media/${gif.id}/giphy.gif`
-          },
-          {
-            type: 'button',
-            style: 'secondary',
-            child: {
-              type: 'text',
-              text: 'Click Me!'
-            },
-            on_click: 'onClick'
-          },
-          {
-            type: 'chat_select',
-            label: {
-              type: 'text',
-              text: 'Chat'
-            },
-            on_change: 'onChatChange'
-          }
-        ]
+        type: 'image',
+        url: value,
       }
     }
   });
 
+  await app.api.views.dialogs.close(user.name, 'giphy');
   ack();
 });
 
