@@ -1,7 +1,7 @@
 {
-  "name": "@aacebo/echo-gify",
+  "name": "@aacebo/echo-giphy",
   "version": "0.0.0",
-  "description": "",
+  "description": "Giphy lets you search from the world's largest library of animated GIFs, making it easy to find and share them on the web.",
   "author": "",
   "license": "ISC",
   "main": "dist/index",

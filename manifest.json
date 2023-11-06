@@ -2,7 +2,7 @@
 	"icon_url": "https://giphy.com/static/img/about/stickers/logo-spin.gif",
 	"name": "giphy",
 	"display_name": "Giphy",
-	"description": "a giphy app",
+	"description": "Giphy lets you search from the world's largest library of animated GIFs, making it easy to find and share them on the web.",
 	"scopes": [
     "messages:read",
     "messages:write"
