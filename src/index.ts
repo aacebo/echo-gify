@@ -179,6 +179,7 @@ app.action('search', async ({ chat, user, value, ack }) => {
 
 app.action('submit', async ({ chat, user, value, ack }) => {
   await app.api.messages.createFor(user.name, chat.id, {
+    visibility: 'public',
     child: {
       type: 'container',
       child: {
