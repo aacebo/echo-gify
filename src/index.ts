@@ -13,7 +13,7 @@ if (!process.env.GIFY_API_KEY) {
   throw new Error('`GIFY_API_KEY` is required')
 }
 
-const gify = new GiphyFetch(process.env.GIFY_API_KEY);
+const giphy = new GiphyFetch(process.env.GIFY_API_KEY);
 const app = new App({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET
@@ -38,7 +38,7 @@ app.event('link', async ({ event, ack }) => {
 });
 
 app.shortcut('random', async ({ chat, user, ack }) => {
-  const gifs = await gify.trending({
+  const gifs = await giphy.trending({
     type: 'gifs',
     limit: 15
   });
@@ -107,7 +107,7 @@ app.shortcut('random', async ({ chat, user, ack }) => {
 });
 
 app.action('search', async ({ chat, user, value, ack }) => {
-  const gifs = await gify.search(value.text, {
+  const gifs = await giphy.search(value.text, {
     type: 'gifs',
     explore: true,
     limit: 15
