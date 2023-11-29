@@ -9,11 +9,11 @@ if (!process.env.CLIENT_SECRET) {
   throw new Error('`CLIENT_SECRET` is required');
 }
 
-if (!process.env.GIFY_API_KEY) {
+if (!process.env.GIPHY_API_KEY) {
   throw new Error('`GIFY_API_KEY` is required')
 }
 
-const giphy = new GiphyFetch(process.env.GIFY_API_KEY);
+const giphy = new GiphyFetch(process.env.GIPHY_API_KEY);
 const app = new App({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET
