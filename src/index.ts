@@ -10,7 +10,7 @@ if (!process.env.CLIENT_SECRET) {
 }
 
 if (!process.env.GIPHY_API_KEY) {
-  throw new Error('`GIFY_API_KEY` is required')
+  throw new Error('`GIPHY_API_KEY` is required')
 }
 
 const giphy = new GiphyFetch(process.env.GIPHY_API_KEY);
