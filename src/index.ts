@@ -57,11 +57,11 @@ app.shortcut('random', async ({ chat, user, ack }) => {
         type: 'button',
         child: {
           type: 'image',
-          url: gifs.data[idx].images.downsized_medium.url
+          url: gifs.data[idx].images.downsized_small.url
         },
         on_click: {
           action: 'submit',
-          value: gifs.data[idx].images.downsized_medium.url
+          value: gifs.data[idx].images.downsized_small.url
         }
       });
 
@@ -127,11 +127,11 @@ app.action('search', async ({ chat, user, value, ack }) => {
         type: 'button',
         child: {
           type: 'image',
-          url: gifs.data[idx].images.downsized_medium.url
+          url: gifs.data[idx].images.downsized_small.url
         },
         on_click: {
           action: 'submit',
-          value: gifs.data[idx].images.downsized_medium.url
+          value: gifs.data[idx].images.downsized_small.url
         }
       });
 
