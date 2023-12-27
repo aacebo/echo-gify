@@ -1,8 +1,8 @@
-import { App, blocks, models } from '@aacebo/echo';
+import { App, ShortcutHandlerArgs, blocks } from '@aacebo/echo';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 
 export function random(app: App, giphy: GiphyFetch) {
-  return async ({ chat, user, ack }: { chat: models.Chat, user: models.User, ack: () => void }) => {
+  return async ({ chat, user, ack }: ShortcutHandlerArgs) => {
     const gifs = await giphy.trending({
       type: 'gifs',
       limit: 15

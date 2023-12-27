@@ -1,8 +1,8 @@
-import { App, blocks, models } from '@aacebo/echo';
+import { App, ActionHandlerArgs, blocks } from '@aacebo/echo';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 
 export function search(app: App, giphy: GiphyFetch) {
-  return async ({ chat, user, value, ack }: { chat: models.Chat, user: models.User, value: any, ack: () => void }) => {
+  return async ({ chat, user, value, ack }: ActionHandlerArgs) => {
     const gifs = await giphy.search(value.text, {
       type: 'gifs',
       explore: true,

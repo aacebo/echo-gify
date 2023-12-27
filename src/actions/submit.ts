@@ -1,7 +1,7 @@
-import { App, models } from '@aacebo/echo';
+import { App, ActionHandlerArgs } from '@aacebo/echo';
 
 export function submit(app: App) {
-  return async ({ chat, user, value, ack }: { chat: models.Chat, user: models.User, value: any, ack: () => void }) => {
+  return async ({ chat, user, value, ack }: ActionHandlerArgs) => {
     await app.api.views.chats.draft(user.name, chat.id, {
       child: {
         type: 'container',
