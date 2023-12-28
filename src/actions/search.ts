@@ -3,7 +3,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api';
 
 export function search(app: App, giphy: GiphyFetch) {
   return async ({ chat, user, value, ack }: ActionHandlerArgs<'input'>['chat']) => {
-    const gifs = await giphy.search(value.text, {
+    const gifs = await giphy.search(value.text || ' ', {
       type: 'gifs',
       explore: true,
       limit: 15
