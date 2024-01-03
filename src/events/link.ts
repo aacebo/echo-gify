@@ -5,11 +5,8 @@ export function link(app: App) {
     if (event.body.link.includes('.gif')) {
       await app.api.messages.extend(event.body.message_id, {
         body: {
-          type: 'container',
-          child: {
-            type: 'image',
-            url: event.body.link
-          }
+          type: 'image',
+          url: event.body.link
         }
       });
     }
