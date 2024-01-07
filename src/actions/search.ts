@@ -2,7 +2,7 @@ import { App, ActionHandlerArgs, blocks } from '@aacebo/echo';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 
 export function search(app: App, giphy: GiphyFetch) {
-  return async ({ chat, user, value, ack }: ActionHandlerArgs<'input'>['chat']) => {
+  return async ({ session_id, chat, value, ack }: ActionHandlerArgs<'input'>['chat']) => {
     const gifs = await giphy.search(value.text || ' ', {
       type: 'gifs',
       explore: true,
@@ -40,7 +40,7 @@ export function search(app: App, giphy: GiphyFetch) {
       }
     }
 
-    await app.api.views.dialogs.open(user.name, {
+    await app.api.views.dialogs.open(session_id, {
       id: 'giphy',
       type: 'chat',
       context_id: chat.id,

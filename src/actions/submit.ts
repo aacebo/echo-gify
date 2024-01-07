@@ -1,15 +1,15 @@
 import { App, ActionHandlerArgs } from '@aacebo/echo';
 
 export function submit(app: App) {
-  return async ({ chat, user, value, ack }: ActionHandlerArgs<'button'>['chat']) => {
-    await app.api.views.chats.draft(user.name, chat.id, {
+  return async ({ session_id, chat, value, ack }: ActionHandlerArgs<'button'>['chat']) => {
+    await app.api.views.chats.draft(session_id, chat.id, {
       child: {
         type: 'image',
         url: value
       }
     });
 
-    await app.api.views.dialogs.close(user.name, 'giphy');
+    await app.api.views.dialogs.close(session_id, 'giphy');
     ack();
   };
 }

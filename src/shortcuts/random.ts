@@ -2,7 +2,7 @@ import { App, ShortcutHandlerArgs, blocks } from '@aacebo/echo';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 
 export function random(app: App, giphy: GiphyFetch) {
-  return async ({ chat, user, ack }: ShortcutHandlerArgs['chat']) => {
+  return async ({ session_id, chat, ack }: ShortcutHandlerArgs['chat']) => {
     const gifs = await giphy.trending({
       type: 'gifs',
       limit: 15
@@ -39,7 +39,7 @@ export function random(app: App, giphy: GiphyFetch) {
       }
     }
 
-    await app.api.views.dialogs.open(user.name, {
+    await app.api.views.dialogs.open(session_id, {
       id: 'giphy',
       type: 'chat',
       context_id: chat.id,
