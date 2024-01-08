@@ -52,14 +52,21 @@ export function search(app: App, giphy: GiphyFetch) {
         type: 'column',
         children: [
           {
-            type: 'input',
-            placeholder: {
-              type: 'text',
-              text: 'Search...'
+            type: 'container',
+            padding: {
+              left: 10,
+              right: 10
             },
-            default_value: value.text,
-            on_change: {
-              action: 'search'
+            child: {
+              type: 'input',
+              placeholder: {
+                type: 'text',
+                text: 'Search...'
+              },
+              default_value: value.text,
+              on_change: {
+                action: 'search'
+              }
             }
           },
           {

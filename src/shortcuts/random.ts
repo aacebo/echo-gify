@@ -51,13 +51,20 @@ export function random(app: App, giphy: GiphyFetch) {
         type: 'column',
         children: [
           {
-            type: 'input',
-            placeholder: {
-              type: 'text',
-              text: 'Search...'
+            type: 'container',
+            padding: {
+              left: 10,
+              right: 10
             },
-            on_change: {
-              action: 'search'
+            child: {
+              type: 'input',
+              placeholder: {
+                type: 'text',
+                text: 'Search...'
+              },
+              on_change: {
+                action: 'search'
+              }
             }
           },
           {
