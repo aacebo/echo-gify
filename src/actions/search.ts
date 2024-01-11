@@ -40,42 +40,46 @@ export function search(app: App, giphy: GiphyFetch) {
       }
     }
 
-    await app.api.views.dialogs.open(session_id, {
-      id: 'giphy',
-      type: 'chat',
-      context_id: chat.id,
-      title: {
-        type: 'text',
-        text: 'Random Gif'
-      },
-      body: {
-        type: 'column',
-        children: [
-          {
-            type: 'container',
-            padding: {
-              left: 10,
-              right: 10
-            },
-            child: {
-              type: 'input',
-              placeholder: {
-                type: 'text',
-                text: 'Search...'
+    try {
+      await app.api.views.dialogs.open(session_id, {
+        id: 'giphy',
+        type: 'chat',
+        context_id: chat.id,
+        title: {
+          type: 'text',
+          text: 'Random Gif'
+        },
+        body: {
+          type: 'column',
+          children: [
+            {
+              type: 'container',
+              padding: {
+                left: 10,
+                right: 10
               },
-              default_value: value.text,
-              on_change: {
-                action: 'search'
+              child: {
+                type: 'input',
+                placeholder: {
+                  type: 'text',
+                  text: 'Search...'
+                },
+                default_value: value.text,
+                on_change: {
+                  action: 'search'
+                }
               }
-            }
-          },
-          {
-            type: 'spacer'
-          },
-          ...rows
-        ]
-      }
-    });
+            },
+            {
+              type: 'spacer'
+            },
+            ...rows
+          ]
+        }
+      });
+    } catch (err) {
+      app.log(err);
+    }
 
     ack();
   };
