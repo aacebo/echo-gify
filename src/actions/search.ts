@@ -50,34 +50,34 @@ export function search(app: App, giphy: GiphyFetch) {
           text: 'Random Gif'
         },
         body: {
-          type: 'scroll',
-          child: {
-            type: 'column',
-            children: [
-              {
-                type: 'container',
-                padding: {
-                  left: 10,
-                  right: 10
+          type: 'column',
+          children: [
+            {
+              type: 'container',
+              padding: {
+                left: 10,
+                right: 10
+              },
+              child: {
+                type: 'input',
+                placeholder: {
+                  type: 'text',
+                  text: 'Search...'
                 },
-                child: {
-                  type: 'input',
-                  placeholder: {
-                    type: 'text',
-                    text: 'Search...'
-                  },
-                  default_value: value.text,
-                  on_change: {
-                    action: 'search'
-                  }
+                default_value: value.text,
+                on_change: {
+                  action: 'search'
                 }
-              },
-              {
-                type: 'spacer'
-              },
-              ...rows
-            ]
-          }
+              }
+            },
+            {
+              type: 'scroll',
+              child: {
+                type: 'column',
+                children: rows
+              }
+            }
+          ]
         }
       });
     } catch (err) {
