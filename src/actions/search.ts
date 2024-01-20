@@ -56,7 +56,8 @@ export function search(app: App, giphy: GiphyFetch) {
               type: 'container',
               padding: {
                 left: 10,
-                right: 10
+                right: 10,
+                bottom: 10
               },
               child: {
                 type: 'input',
