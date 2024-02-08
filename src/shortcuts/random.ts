@@ -64,7 +64,7 @@ export function random(app: App, giphy: GiphyFetch) {
                   type: 'text',
                   text: 'Search...'
                 },
-                on_change: {
+                on_submit: {
                   action: 'search'
                 }
               }

@@ -66,7 +66,7 @@ export function search(app: App, giphy: GiphyFetch) {
                   text: 'Search...'
                 },
                 default_value: value.text,
-                on_change: {
+                on_submit: {
                   action: 'search'
                 }
               }
